@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+#app {
+    margin: 50px auto;
+}
+
+.category {
+    margin-top: 20px;
+}
+
+.category h2 {
+    margin-bottom: 10px;
+}
+
+.sortable-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    min-height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.sortable-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: move;
+}
+
+.sortable-list li:last-child {
+    border-bottom: none;
+}
+
+.add-item {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.add-item input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.add-item button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
