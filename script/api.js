@@ -13,6 +13,22 @@ function loadTasks(callBack) {
     });
 }
 
+function loadCategories(callBack, after) {
+  makeXHRRequest('GET', apiUrl + owner + '/tasks/categories')
+    .then(data => {
+      if (Array.isArray(data)) {
+        Array.from(data).forEach(i => callBack(i));
+      }
+
+      if (after !== undefined)
+        after();
+    })
+    .catch(error => {
+      console.error('Errore durante la richiesta:', error);
+    });
+}
+
+
 function saveTask(taskText, callback) {
   if (taskText !== undefined && taskText.trim() !== "") {
     const taskData = {
@@ -22,6 +38,23 @@ function saveTask(taskText, callback) {
     makeXHRRequest('POST', apiUrl + owner + '/task', taskData)
       .then(data => {
         console.log('Nuovo task creato:', data);
+        callback(data);
+      })
+      .catch(error => {
+        console.error('Errore durante la richiesta:', error);
+      });
+  }
+}
+
+function saveCategory(categoryText, callback) {
+  if (categoryText !== undefined && categoryText.trim() !== "") {
+    const categoryData = {
+      description: categoryText.trim()
+    }
+
+    makeXHRRequest('POST', apiUrl + owner + '/tasks/category', categoryData)
+      .then(data => {
+        console.log('Nuova category creata:', data);
         callback(data);
       })
       .catch(error => {
@@ -43,16 +76,18 @@ function deleteTask(taskId, callback) {
   }
 }
 
-function editTask(taskId, taskText, callback) {
+function editTask(taskId, taskText, category, callback) {
   if (taskId !== undefined && taskText !== undefined && taskText.trim() !== "") {
     const taskData = {
-      description: taskText.trim()
+      description: taskText.trim(),
+      category: category.trim()
     }
 
     makeXHRRequest('PUT', apiUrl + owner + `/task/${taskId}`, taskData)
       .then(data => {
         console.log('Task aggiornato:', data);
-        callback(data);
+        if (callback !== undefined)
+          callback(data);
       })
       .catch(error => {
         console.error('Errore durante la richiesta:', error);
