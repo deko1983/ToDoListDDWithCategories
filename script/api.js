@@ -1,4 +1,4 @@
-var apiUrl = 'http://192.168.0.108:3000/'; 
+var apiUrl = 'http://192.168.0.103:3000/'; 
 var owner = 'fmariani'; // obbligatorio
 
 function loadTasks(callBack) {

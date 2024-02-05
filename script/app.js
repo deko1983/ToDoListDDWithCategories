@@ -53,6 +53,11 @@ function drawCategory(dataReceived)  {
       cursor: "move",
       placeholder: "ui-state-highlight",
       dropOnEmpty: true,
+      receive: function(event, ui)  {
+        console.log(ui);
+        console.log(ui.item);
+      },
+      /*
       update: function( event, ui ) {
         var draggedElement = ui.item;
         var listTarget = event.target;
@@ -60,12 +65,31 @@ function drawCategory(dataReceived)  {
         console.log('draggedElement', draggedElement[0].dataset);
         console.log('targetElement', listTarget.dataset);
       ;}
+      */
   }).disableSelection();
   }
 }
 
-function editTask()  {
-  
+function editItem(elementToEdit)  {
+  var myInput = $(elementToEdit).children('input');
+  if (myInput.length == 0)  {
+    var mySpan = $(elementToEdit).children('span');
+    // creo l'elemento (jquery)
+    var myInput = $('<input type="text" value="">');
+    // rimpiazzo
+    mySpan.replaceWith(myInput);
+    // guadagno automaticamente il focus
+    myInput.trigger('focus');
+  } else {
+    // altro modo per creare elementi in jquery (obsoleto)
+    // mySpan = $(document.createElement('span'));
+    // modo corretto di creare oggetti
+    mySpan = $('<span>');
+    // imposto il valore dell'input come text del tag span
+    mySpan.text(myInput.val());
+    // rimpiazzo l'input con lo span
+    myInput.replaceWith(mySpan);
+  }
 }
 
 function getCategoryTemplate(data)  {
@@ -80,7 +104,7 @@ function getCategoryTemplate(data)  {
 }
 
 function addItem(data) {
-  console.log(data)
+  //console.log(data)
   if (data !== undefined && 'description' in data) {
     var itemText = data.description;
 
